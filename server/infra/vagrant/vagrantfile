@@ -8,6 +8,7 @@
 Vagrant.configure(2) do |config|
 
   config.vm.box = "ubuntu/vivid64"
+  config.vm.synced_folder "../../app/", "/srv/shoplister"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -25,7 +26,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
 
-    sudo apt-get update
     curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
     sudo apt-get install -y nodejs build-essential
     # sudo npm install -g pm2
