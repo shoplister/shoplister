@@ -2,7 +2,7 @@
  * Created by thaodang on 1/2/16.
  */
 var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/test';
+var url = require('./config-service.js').get('mongo.url');
 
 exports.authenticate = (username, password) => {
     console.log("authenticating... ", username, " password: ", password);
