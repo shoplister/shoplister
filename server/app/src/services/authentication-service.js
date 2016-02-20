@@ -8,7 +8,7 @@ exports.authenticate = (username, password) => {
     console.log("authenticating... ", username, " password: ", password);
     return mongoClient.connect(url)
         .then((db) => {
-            console.log(connected);
+            console.log('connected!');
             return db.collection('users').findOne({"username": username})
         })
         .then((doc) => {
