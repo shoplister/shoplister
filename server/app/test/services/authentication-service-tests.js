@@ -2,7 +2,9 @@
  * Created by thaodang on 1/2/16.
  */
 require("promise.prototype.finally");
-var expect = require("chai").expect;
+var chai = require('chai');
+chai.use(require('chai-as-promised'));
+var expect = chai.expect;
 var mongoClient = require('mongodb').MongoClient;
 var authenticationService = require('../../src/services/authentication-service');
 var url = 'mongodb://192.168.55.10:27017/test';
@@ -26,14 +28,11 @@ describe("A valid user", function () {
         });
     });
 
-    it("is authenticated with a valid password", function() {
-        return authenticationService.authenticate("batman", "IloveRobin")
-            .then(function (result){expect(result).be.true});
+    it("is authenticated with a valid password", function(done) {
+        expect(authenticationService.authenticate("batman", "IloveRobin")).to.be.fulfilled.and.notify(done);
     });
 
-    it("is not authenticated with an invalid password", () => {
-        return authenticationService.authenticate("batman", "IloveRobinhood")
-            .then(function(result) {throw new Error("Should not authenticate user with invalid password")},
-            function (result){expect(result).be.false});
+    it("is not authenticated with an invalid password", (done) => {
+        expect(authenticationService.authenticate("batman", "IloveRobinhood")).to.be.rejected.and.notify(done);
     });
 });
