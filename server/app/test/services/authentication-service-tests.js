@@ -5,26 +5,19 @@ require("promise.prototype.finally");
 var chai = require('chai');
 chai.use(require('chai-as-promised'));
 var expect = chai.expect;
-var mongoClient = require('mongodb').MongoClient;
+var mongo = require('../../src/services/mongo-service');
 var authenticationService = require('../../src/services/authentication-service');
-var url = require('../../src/services/config-service.js').get('mongo.url');
 
 describe("A valid user", function () {
+    before(function() {
+        return mongo.init();
+    });
+
     beforeEach(function () {
-        theDb = null;
-        mongoClient.connect(url)
-            .then((db) => {
-                theDb = db;
-                collection = db.collection('users');
-                collection.insertOne({
-                    "username": "batman",
-                    "password": "IloveRobin"
-                });
-                done();
-            }).finally(function () {
-            if (theDb) {
-                theDb.close();
-            }
+        console.log("inserting!!")
+        return mongo.collection('users').insertOne({
+            "username": "batman",
+            "password": "IloveRobin"
         });
     });
 
