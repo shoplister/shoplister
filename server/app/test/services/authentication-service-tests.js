@@ -8,7 +8,7 @@ var expect = chai.expect;
 var mongo = require('../../src/services/mongo-service');
 var authenticationService = require('../../src/services/authentication-service');
 
-describe("A valid user", function () {
+describe("#authenticate", function () {
     before(function() {
         return mongo.init();
     });
@@ -20,12 +20,18 @@ describe("A valid user", function () {
             "password": "IloveRobin"
         });
     });
+    describe("An existing user", function() {
+        it("is authenticated with a valid password", function(done) {
+            expect(authenticationService.authenticate("batman", "IloveRobin")).to.be.fulfilled.and.notify(done);
+        });
 
-    it("is authenticated with a valid password", function(done) {
-        expect(authenticationService.authenticate("batman", "IloveRobin")).to.be.fulfilled.and.notify(done);
+        it("is not authenticated with an invalid password", function(done) {
+            expect(authenticationService.authenticate("batman", "IloveRobinhood")).to.be.rejected.and.notify(done);
+        });
     });
-
-    it("is not authenticated with an invalid password", (done) => {
-        expect(authenticationService.authenticate("batman", "IloveRobinhood")).to.be.rejected.and.notify(done);
+    describe("An invalid user", function() {
+        it("is not authenticated", function(done) {
+            expect(authenticationService.authenticate("superman", "IloveSuperwoman")).to.be.rejected.and.notify(done);
+        });
     });
 });
