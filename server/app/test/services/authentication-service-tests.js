@@ -7,7 +7,7 @@ chai.use(require('chai-as-promised'));
 var expect = chai.expect;
 var mongoClient = require('mongodb').MongoClient;
 var authenticationService = require('../../src/services/authentication-service');
-var url = 'mongodb://192.168.55.10:27017/test';
+var url = 'mongodb://localhost:27017/test';
 
 describe("A valid user", function () {
     beforeEach(function () {
