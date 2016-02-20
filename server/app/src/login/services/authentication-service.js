@@ -1,4 +1,4 @@
-var mongo = require('./mongo-service');
+var mongo = require('../../common/services/mongo-service');
 
 exports.authenticate = (username, password) => {
     console.log("authenticating... ", username, " password: ", password);

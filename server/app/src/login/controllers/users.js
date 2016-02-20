@@ -1,13 +1,7 @@
-/**
- * Created by thaodang on 1/2/16.
- */
-/**
- * About page route
- */
 module.exports.controller = function(app) {
 
     /**
-     * a home page route
+     * signup page route
      */
     app.get('/signup', function(req, res) {
         // any logic goes here
@@ -15,7 +9,7 @@ module.exports.controller = function(app) {
     });
 
     /**
-     * About page route
+     * Login page route
      */
     app.get('/login', function(req, res) {
         // any logic goes here

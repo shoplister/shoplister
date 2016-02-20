@@ -5,8 +5,8 @@ require("promise.prototype.finally");
 var chai = require('chai');
 chai.use(require('chai-as-promised'));
 var expect = chai.expect;
-var mongo = require('../../src/services/mongo-service');
-var authenticationService = require('../../src/services/authentication-service');
+var mongo = require('../../../src/common/services/mongo-service');
+var authenticationService = require('../../../src/login/services/authentication-service');
 
 describe("#authenticate", function () {
     before(function() {
@@ -14,7 +14,6 @@ describe("#authenticate", function () {
     });
 
     beforeEach(function () {
-        console.log("inserting!!")
         return mongo.collection('users').insertOne({
             "username": "batman",
             "password": "IloveRobin"
